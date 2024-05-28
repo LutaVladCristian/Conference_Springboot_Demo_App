@@ -1,16 +1,3 @@
-CREATE SCHEMA CONFERENCE_DB;
-
-CREATE TABLE attendees
-(
-    attendee_id  SERIAL PRIMARY KEY,
-    first_name   varchar(30) NOT NULL,
-    last_name    varchar(30) NOT NULL,
-    title        varchar(40) NULL,
-    company      varchar(50) NULL,
-    email        varchar(80) NOT NULL,
-    phone_number varchar(20) NULL
-);
-
 CREATE TABLE ticket_types
 (
     ticket_type_code  varchar(1) PRIMARY KEY,
@@ -33,24 +20,6 @@ CREATE TABLE ticket_prices
     ticket_type_code      varchar(1)    NOT NULL REFERENCES ticket_types (ticket_type_code),
     pricing_category_code varchar(1)    NOT NULL REFERENCES pricing_categories (pricing_category_code),
     base_price            numeric(8, 2) NOT NULL
-);
-
-CREATE TABLE discount_codes
-(
-    discount_code_id SERIAL PRIMARY KEY,
-    discount_code    varchar(20)   NOT NULL,
-    discount_name    varchar(30)   NOT NULL,
-    discount_type    varchar(1)    NOT NULL,
-    discount_amount  numeric(8, 2) NOT NULL
-);
-
-CREATE TABLE attendee_tickets
-(
-    attendee_ticket_id SERIAL PRIMARY KEY,
-    attendee_id        integer       NOT NULL REFERENCES attendees (attendee_id),
-    ticket_price_id    integer       NOT NULL REFERENCES ticket_prices (ticket_price_id),
-    discount_code_id   integer       NULL REFERENCES discount_codes (discount_code_id),
-    net_price          numeric(8, 2) NOT NULL
 );
 
 CREATE TABLE time_slots
@@ -84,12 +53,6 @@ CREATE TABLE tags
     description varchar(30) NOT NULL
 );
 
-CREATE TABLE session_tags
-(
-    session_id integer NOT NULL REFERENCES sessions (session_id),
-    tag_id     integer NOT NULL REFERENCES tags (tag_id)
-);
-
 CREATE TABLE speakers
 (
     speaker_id    SERIAL PRIMARY KEY,
@@ -115,16 +78,4 @@ CREATE TABLE workshops
     requirements  varchar(1024) NOT NULL,
     room          varchar(30)   NOT NULL,
     capacity      integer       NOT NULL
-);
-
-CREATE TABLE workshop_speakers
-(
-    workshop_id integer NOT NULL REFERENCES workshops (workshop_id),
-    speaker_id  integer NOT NULL REFERENCES speakers (speaker_id)
-);
-
-CREATE TABLE workshop_registrations
-(
-    workshop_id        integer NOT NULL REFERENCES workshops (workshop_id),
-    attendee_ticket_id integer NOT NULL REFERENCES attendee_tickets (attendee_ticket_id)
 );
