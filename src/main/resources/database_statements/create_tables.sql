@@ -35,7 +35,6 @@ CREATE TABLE sessions
 (
     session_id          SERIAL PRIMARY KEY,
     session_name        varchar(80)   NOT NULL,
-    session_description varchar(1024) NOT NULL,
     session_length      integer       NOT NULL
 );
 
@@ -60,8 +59,6 @@ CREATE TABLE speakers
     last_name     varchar(30)   NOT NULL,
     title         varchar(40)   NOT NULL,
     company       varchar(50)   NOT NULL,
-    speaker_bio   varchar(2000) NOT NULL,
-    speaker_photo BLOB   		NULL
 );
 
 CREATE TABLE session_speakers
@@ -74,8 +71,6 @@ CREATE TABLE workshops
 (
     workshop_id   SERIAL PRIMARY KEY,
     workshop_name varchar(60)   NOT NULL,
-    description   varchar(1024) NOT NULL,
-    requirements  varchar(1024) NOT NULL,
     room          varchar(30)   NOT NULL,
     capacity      integer       NOT NULL
 );
