@@ -46,8 +46,9 @@ public class SessionService {
         sessionRepo.updateSessionName(id, newName);
     }
 
-    public void addSession(Session session) {
+    public Session addSession(Session session) {
         log.warn("Added session!");
         sessionRepo.save(session);
+        return session;
     }
 }
